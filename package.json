@@ -1,0 +1,15 @@
+{
+  "name": "message-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Raphael Santos <raphaelmacsa@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "totalvoice-http": "file:local_modules/totalvoice-http/"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "totalvoice-http",
+  "version": "1.0.0",
+  "description": "Simply http client (with TLS) that are focused to communicate with TotalVoice API",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run tests/test.js"
+  },
+  "author": "Raphael Machado dos Santos",
+  "license": "ISC",
+  "dependencies": {
+    "tape": "^4.11.0"
+  }
+}
