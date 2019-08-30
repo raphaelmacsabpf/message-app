@@ -36,3 +36,14 @@ tape('Use TotalVoiceHttp GET', (t) => {
         t.assert(res.statusCode == 200 && res.statusMessage == 'OK', 'Response.statusCode is 200 and Response.statusMessage is OK');
     });
 });
+
+tape('Use TotalVoiceHttp POST', (t) => {
+    // Arrange
+    const totalVoiceHttp = new TotalVoiceHttp('0.0.0.0', 443, 'FAKE_ACCESS_TOKEN');
+    t.plan(1);
+
+    // Act & Assert
+    totalVoiceHttp.post('/products', (req, res) => {
+        t.assert(res.statusCode == 200 && res.statusMessage == 'OK', 'Response.statusCode is 200 and Response.statusMessage is OK');
+    });
+});
