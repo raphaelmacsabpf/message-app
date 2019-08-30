@@ -1,7 +1,14 @@
 class Response {
     constructor(rawData) {
         this.headers = [];
-        parseHttpResponse.call(this, rawData);
+        this.statusCode = undefined;
+        this.statusMessage = undefined;
+        this.messageBody = undefined;
+
+        if(!rawData)
+            throw new Error('Empty raw data');
+
+        parseHttpResponse.call(this, rawData.toString());
     }
 }
 
@@ -11,7 +18,7 @@ function parseHttpResponse(rawHttpResponse) {
     const MESSAGE_BODY_INDEX = 3;
 
     let regex = /(.*)\r\n([\s\S]+)\r\n\r\n([\s\S]+)/gm;
-    let regexMatches = regex.exec(rawHttpResponse.toString());
+    let regexMatches = regex.exec(rawHttpResponse);
 
     extractStatusCodeFrom.call(this, regexMatches[STATUS_LINE_INDEX]);
     extractHeadersFrom.call(this, regexMatches[HEADERS_INDEX]);
