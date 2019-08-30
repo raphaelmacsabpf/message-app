@@ -9,13 +9,24 @@ class Request {
         this.route = route;
         this.body = body;
         this.headers = DEFAULT_HEADERS;
-        
         this.addHeaders(headers);
     }
 
     addHeaders(headers) {
         Object.keys(headers).forEach((header) => {
             this.headers.push({key: header, value: headers[header]});
+        });
+    }
+
+    removeHeaders(headers) {
+        let headersToRemove = [].concat(headers || []);
+        
+        headersToRemove.forEach((header) => {
+            const indexToRemove = this.headers.findIndex((existingHeader) => {
+                return existingHeader.key == header;
+            });
+
+            ~indexToRemove && this.headers.splice(indexToRemove, 1); // Try to remove only if indexToRemove > -1
         });
     }
 }
