@@ -32,7 +32,7 @@ tape('Use TotalVoiceHttp GET', (t) => {
     t.plan(1);
 
     // Act & Assert
-    totalVoiceHttp.get('/products', (req, res) => {
+    totalVoiceHttp.get('/products', {}, (req, res) => {
         t.assert(res.statusCode == 200 && res.statusMessage == 'OK', 'Response.statusCode is 200 and Response.statusMessage is OK');
     });
 });
@@ -43,7 +43,7 @@ tape('Use TotalVoiceHttp POST', (t) => {
     t.plan(1);
 
     // Act & Assert
-    totalVoiceHttp.post('/products', (req, res) => {
+    totalVoiceHttp.post('/products', {}, (req, res) => {
         t.assert(res.statusCode == 200 && res.statusMessage == 'OK', 'Response.statusCode is 200 and Response.statusMessage is OK');
     });
 });

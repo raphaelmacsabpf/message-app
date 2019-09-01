@@ -10,30 +10,34 @@ class TotalVoiceHttp extends EventEmitter {
           this.hostname = hostname;
           this.port = port;
           this.accessToken = accesstoken;
+          this.defaultHeaders = {
+               'Access-Token': this.accessToken, 
+               'Host': this.hostname
+          }
      }
 
-     get(route, finishCallback) {
-          const httpRequest = new Request('GET', route, {'Access-Token': this.accessToken, 'Host': this.hostname});
+     get(route, body, finishCallback) {
+          const httpRequest = new Request('GET', route, this.defaultHeaders, body);
           sendRequest.call(this, httpRequest, finishCallback);
      }
 
-     post(route, finishCallback) {
-          const httpRequest = new Request('POST', route, {'Access-Token': this.accessToken, 'Host': this.hostname});
+     post(route, body, finishCallback) {
+          const httpRequest = new Request('POST', route, this.defaultHeaders, body);
           sendRequest.call(this, httpRequest, finishCallback);
      }
      
-     put(route, finishCallback) {
-          const httpRequest = new Request('PUT', route, {'Access-Token': this.accessToken, 'Host': this.hostname});
+     put(route, body, finishCallback) {
+          const httpRequest = new Request('PUT', route, this.defaultHeaders, body);
           sendRequest.call(this, httpRequest, finishCallback);
      }
 
-     delete(route, finishCallback) {
-          const httpRequest = new Request('DELETE', route, {'Access-Token': this.accessToken, 'Host': this.hostname});
+     delete(route, body, finishCallback) {
+          const httpRequest = new Request('DELETE', route, this.defaultHeaders, body);
           sendRequest.call(this, httpRequest, finishCallback);
      }
 
-     options(route, finishCallback) {
-          const httpRequest = new Request('OPTIONS', route, {'Access-Token': this.accessToken, 'Host': this.hostname});
+     options(route, body, finishCallback) {
+          const httpRequest = new Request('OPTIONS', route, this.defaultHeaders, body);
           sendRequest.call(this, httpRequest, finishCallback);
      }
 }
@@ -42,7 +46,11 @@ function sendRequest(request, finishCallback) {
      const tlsSocket = tls.connect(this.port, this.hostname, {rejectUnauthorized: false});
           
      tlsSocket.once('secureConnect', () => {
-          tlsSocket.write(serializeRequest.call(request));
+          const body = JSON.stringify(request.body);
+          const bodyLength = body ? body.length : 0;
+          
+          request.addHeaders({'Content-Length': bodyLength});
+          tlsSocket.write(serializeRequest.call(request, body));
           tlsSocket.on('data', (responseData) => {
                finishCallback(request, new Response(responseData));
           });
@@ -53,7 +61,7 @@ function sendRequest(request, finishCallback) {
      });
 }
 
-function serializeRequest() {
+function serializeRequest(body) {
      let serializedHttpRequest = '';
      serializedHttpRequest += `${this.method} ${this.route} HTTP/1.1\r\n`;
 
@@ -62,7 +70,7 @@ function serializeRequest() {
      });
      
      serializedHttpRequest += '\r\n';
-     serializedHttpRequest += JSON.stringify(this.body);
+     serializedHttpRequest += body;
      
      return serializedHttpRequest;
 }
