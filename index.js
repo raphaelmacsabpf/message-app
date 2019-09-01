@@ -1,3 +1,5 @@
+require('dotenv').config(); // Keep this require at top of this file to load environment variables in .env file
+
 const express = require('express');
 const smsRoute = require('./lib/api/routes/sms');
 
