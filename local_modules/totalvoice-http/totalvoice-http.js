@@ -13,7 +13,7 @@ class TotalVoiceHttp extends EventEmitter {
           this.defaultHeaders = {
                'Access-Token': this.accessToken, 
                'Host': this.hostname
-          }
+          };
      }
 
      get(route, body, finishCallback) {
@@ -66,7 +66,7 @@ function serializeRequest(body) {
      serializedHttpRequest += `${this.method} ${this.route} HTTP/1.1\r\n`;
 
      this.headers.forEach((header) => {
-         serializedHttpRequest += `${header.key}: ${header.value}\r\n`
+         serializedHttpRequest += `${header.key}: ${header.value}\r\n`;
      });
      
      serializedHttpRequest += '\r\n';

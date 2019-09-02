@@ -13,12 +13,12 @@ var stubs = {
                 },
                 on: (event, listener) => {
                     if(event == 'data') {
-                        const VALID_RESPONSE_RAW_STRING = `HTTP/1.1 200 OK\r\nDate: Fri, 30 Aug 2019 00:52:23 GMT\r\nServer: Apache\r\nAccess-Control-Allow-Origin: *\r\nX-Content-Type-Options: nosniff\r\nContent-Length: 85\r\nContent-Type: application/json\r\n\r\n{"status":200,"sucesso":true,"motivo":0,"mensagem":"saldo atual","dados":{"saldo":3}}`;
+                        const VALID_RESPONSE_RAW_STRING = 'HTTP/1.1 200 OK\r\nDate: Fri, 30 Aug 2019 00:52:23 GMT\r\nServer: Apache\r\nAccess-Control-Allow-Origin: *\r\nX-Content-Type-Options: nosniff\r\nContent-Length: 85\r\nContent-Type: application/json\r\n\r\n{"status":200,"sucesso":true,"motivo":0,"mensagem":"saldo atual","dados":{"saldo":3}}';
                         listener(VALID_RESPONSE_RAW_STRING);
                     }
                 },
                 write: () => { }
-            }
+            };
         },
         '@global': true
     }

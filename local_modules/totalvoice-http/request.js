@@ -4,7 +4,7 @@ class Request {
             {key: 'User-Agent', value: 'RaphaelSantosApp/1.0.0'},
             {key: 'Accept', value: 'application/json'},
             {key: 'Content-Type', value: 'application/json'}
-        ]
+        ];
         
         this.method = method;
         this.route = route;
