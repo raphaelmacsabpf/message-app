@@ -11,7 +11,7 @@ const Response = require('./response');
  */
 class TotalVoiceHttp extends EventEmitter {
      /**
-      *Creates an instance of TotalVoiceHttp.
+      * Creates an instance of TotalVoiceHttp.
       * @param {string} hostname
       * @param {number} port
       * @param {string} accesstoken
