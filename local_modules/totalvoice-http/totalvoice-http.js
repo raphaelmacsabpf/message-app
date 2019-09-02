@@ -4,7 +4,19 @@ const EventEmitter = require('events');
 const Request = require('./request');
 const Response = require('./response');
 
+/**
+ * Http client designed for Totalvoice API
+ * @class TotalVoiceHttp
+ * @extends {EventEmitter}
+ */
 class TotalVoiceHttp extends EventEmitter {
+     /**
+      *Creates an instance of TotalVoiceHttp.
+      * @param {string} hostname
+      * @param {number} port
+      * @param {string} accesstoken
+      * @memberof TotalVoiceHttp
+      */
      constructor(hostname, port, accesstoken) { 
           super();
           this.hostname = hostname;
@@ -16,32 +28,72 @@ class TotalVoiceHttp extends EventEmitter {
           };
      }
 
+     /**
+      * Send a get http request
+      * @param {string} route
+      * @param {object} body
+      * @param {finishCallback} finishCallback
+      * @memberof TotalVoiceHttp
+      */
      get(route, body, finishCallback) {
           const httpRequest = new Request('GET', route, this.defaultHeaders, body);
           sendRequest.call(this, httpRequest, finishCallback);
      }
 
+     /**
+      * Send a post http request
+      * @param {string} route
+      * @param {object} body
+      * @param {finishCallback} finishCallback
+      * @memberof TotalVoiceHttp
+      */
      post(route, body, finishCallback) {
           const httpRequest = new Request('POST', route, this.defaultHeaders, body);
           sendRequest.call(this, httpRequest, finishCallback);
      }
      
+     /**
+      * Send a put http request
+      * @param {string} route
+      * @param {object} body
+      * @param {finishCallback} finishCallback
+      * @memberof TotalVoiceHttp
+      */
      put(route, body, finishCallback) {
           const httpRequest = new Request('PUT', route, this.defaultHeaders, body);
           sendRequest.call(this, httpRequest, finishCallback);
      }
 
+     /**
+      * Send a delete http request
+      * @param {string} route
+      * @param {object} body
+      * @param {finishCallback} finishCallback
+      * @memberof TotalVoiceHttp
+      */
      delete(route, body, finishCallback) {
           const httpRequest = new Request('DELETE', route, this.defaultHeaders, body);
           sendRequest.call(this, httpRequest, finishCallback);
      }
 
+     /**
+      * Send a options http request
+      * @param {string} route
+      * @param {object} body
+      * @param {finishCallback} finishCallback
+      * @memberof TotalVoiceHttp
+      */
      options(route, body, finishCallback) {
           const httpRequest = new Request('OPTIONS', route, this.defaultHeaders, body);
           sendRequest.call(this, httpRequest, finishCallback);
      }
 }
 
+/**
+ * Send request via TLS
+ * @param {Request} request
+ * @param {finishCallback} finishCallback
+ */
 function sendRequest(request, finishCallback) {
      const tlsSocket = tls.connect(this.port, this.hostname, {rejectUnauthorized: false});
           
@@ -61,6 +113,10 @@ function sendRequest(request, finishCallback) {
      });
 }
 
+/**
+ * Serialize request to HTTP/1.1 format
+ * @param {{}} body
+ */
 function serializeRequest(body) {
      let serializedHttpRequest = '';
      serializedHttpRequest += `${this.method} ${this.route} HTTP/1.1\r\n`;
@@ -76,3 +132,10 @@ function serializeRequest(body) {
 }
 
 module.exports = TotalVoiceHttp;
+
+/**
+ * Callback for http methods
+ * @callback finishCallback
+ * @param {{}} request
+ * @param {{}} response
+ */

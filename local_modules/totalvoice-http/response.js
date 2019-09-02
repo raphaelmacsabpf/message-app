@@ -1,4 +1,13 @@
+/**
+ * Http response
+ * @class Response
+ */
 class Response {
+    /**
+     *Creates an instance of Response.
+     * @param {string} rawData
+     * @memberof Response
+     */
     constructor(rawData) {
         this.headers = [];
         this.statusCode = undefined;
@@ -12,6 +21,10 @@ class Response {
     }
 }
 
+/**
+ * Parse http response
+ * @param {string} rawHttpResponse
+ */
 function parseHttpResponse(rawHttpResponse) {
     const STATUS_LINE_INDEX = 1;
     const HEADERS_INDEX = 2;
@@ -25,6 +38,10 @@ function parseHttpResponse(rawHttpResponse) {
     extractMessageBodyFrom.call(this, regexMatches[MESSAGE_BODY_INDEX]);
 }
 
+/**
+ * Parse statusCode and statusMessage of a request
+ * @param {string} rawStatusLine
+ */
 function extractStatusCodeFrom(rawStatusLine) {
     const STATUS_CODE_INDEX = 1;
     const STATUS_MESSAGE_INDEX = 2;
@@ -35,6 +52,10 @@ function extractStatusCodeFrom(rawStatusLine) {
     this.statusMessage = regexMatch[STATUS_MESSAGE_INDEX];
 }
 
+/**
+ * Parse http headers of a request
+ * @param {string} rawHeaders
+ */
 function extractHeadersFrom(rawHeaders) {
     const KEY_INDEX = 1;
     const VALUE_INDEX = 2;
@@ -52,6 +73,10 @@ function extractHeadersFrom(rawHeaders) {
     }
 }
 
+/**
+ * Parse http body of a request
+ * @param {string} rawMessageBody
+ */
 function extractMessageBodyFrom(rawMessageBody) {
     this.messageBody = rawMessageBody;
 }

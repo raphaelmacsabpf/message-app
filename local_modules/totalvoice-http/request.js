@@ -1,4 +1,16 @@
+/**
+ * Http request
+ * @class Request
+ */
 class Request {
+    /**
+     *Creates an instance of Request.
+     * @param {string} method - HTTP method
+     * @param {string} route
+     * @param {{}} [headers={}]
+     * @param {{}} [body={}]
+     * @memberof Request
+     */
     constructor(method, route, headers = {}, body = {}, ) {
         const DEFAULT_HEADERS = [
             {key: 'User-Agent', value: 'RaphaelSantosApp/1.0.0'},
@@ -13,12 +25,22 @@ class Request {
         this.addHeaders(headers);
     }
 
+    /**
+     * Add headers to the request
+     * @param {{}} headers
+     * @memberof Request
+     */
     addHeaders(headers) {
         Object.keys(headers).forEach((header) => {
             this.headers.push({key: header, value: headers[header]});
         });
     }
 
+    /**
+     * Remove headers from the request
+     * @param {{}} headers
+     * @memberof Request
+     */
     removeHeaders(headers) {
         let headersToRemove = [].concat(headers || []);
         
