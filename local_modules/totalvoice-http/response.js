@@ -26,28 +26,28 @@ class Response {
  * @param {string} rawHttpResponse
  */
 function parseHttpResponse(rawHttpResponse) {
-    const STATUS_LINE_INDEX = 1;
+    const REQUEST_LINE_INDEX = 1;
     const HEADERS_INDEX = 2;
     const MESSAGE_BODY_INDEX = 3;
 
     let regex = /(.*)\r\n([\s\S]+)\r\n\r\n([\s\S]+)/gm;
     let regexMatches = regex.exec(rawHttpResponse);
 
-    extractStatusCodeFrom.call(this, regexMatches[STATUS_LINE_INDEX]);
+    extractStatusCodeFrom.call(this, regexMatches[REQUEST_LINE_INDEX]);
     extractHeadersFrom.call(this, regexMatches[HEADERS_INDEX]);
     extractMessageBodyFrom.call(this, regexMatches[MESSAGE_BODY_INDEX]);
 }
 
 /**
  * Parse statusCode and statusMessage of a request
- * @param {string} rawStatusLine
+ * @param {string} rawRequestLine
  */
-function extractStatusCodeFrom(rawStatusLine) {
+function extractStatusCodeFrom(rawRequestLine) {
     const STATUS_CODE_INDEX = 1;
     const STATUS_MESSAGE_INDEX = 2;
     
     const regex = /HTTP\/1\.1\s(\d+)\s([A-Za-z\s]+)/gm;
-    const regexMatch = regex.exec(rawStatusLine);
+    const regexMatch = regex.exec(rawRequestLine);
     this.statusCode = Number.parseInt(regexMatch[STATUS_CODE_INDEX]);
     this.statusMessage = regexMatch[STATUS_MESSAGE_INDEX];
 }
